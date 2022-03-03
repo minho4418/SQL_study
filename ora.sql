@@ -1,83 +1,83 @@
---´ÜÃàÅ° : 
---ÁÖ¼® : ctrl+/
---´ë¼Ò¹®ÀÚ º¯°æ : alt + '
---SQL¹®Àº ´ë¼Ò¹®ÀÚ ±¸º° ÇÏÁö ¾Ê´Â´Ù (Å°¿öµå, Å×ÀÌºí¸í, ÄÃ·³..)
---µ¥ÀÌÅÍ´Â ´ë¼Ò¹®ÀÚ ±¸º°À» ÇÑ´Ù.
---SELECT Á¶È¸¿­... FROM Å×ÀÌºí¸í;
+--ë‹¨ì¶•í‚¤ : 
+--ì£¼ì„ : ctrl+/
+--ëŒ€ì†Œë¬¸ì ë³€ê²½ : alt + '
+--SQLë¬¸ì€ ëŒ€ì†Œë¬¸ì êµ¬ë³„ í•˜ì§€ ì•ŠëŠ”ë‹¤ (í‚¤ì›Œë“œ, í…Œì´ë¸”ëª…, ì»¬ëŸ¼..)
+--ë°ì´í„°ëŠ” ëŒ€ì†Œë¬¸ì êµ¬ë³„ì„ í•œë‹¤.
+--SELECT ì¡°íšŒì—´... FROM í…Œì´ë¸”ëª…;
 SELECT job_id,job_title,min_salary, max_salary FROM jobs;
 
 SELECT * FROM jobs;
 
---WHERE ÇàÀÇ Á¶°Ç 
+--WHERE í–‰ì˜ ì¡°ê±´ 
 SELECT * FROM jobs WHERE min_salary >= 10000;
 
 SELECT * FROM jobs WHERE min_salary >5000 AND min_salary <10000;
 
---JOBSÅ×ÀÌºí¿¡¼­ MAX_SALARY°¡ 10000ÀÌ»ó 17000ÀÌÇÏ µ¥ÀÌÅÍÀÇ 
---JOB_ID¿Í MAX_SALARY¸¦ Á¶È¸
+--JOBSí…Œì´ë¸”ì—ì„œ MAX_SALARYê°€ 10000ì´ìƒ 17000ì´í•˜ ë°ì´í„°ì˜ 
+--JOB_IDì™€ MAX_SALARYë¥¼ ì¡°íšŒ
 SELECT job_id, max_salary 
 FROM jobs 
 WHERE max_salary 
 BETWEEN 10000  AND 17000;
 
---EMPLOYEESÅ×ÀÌºí¿¡¼­ SALARY°¡ 12000ÀÌ»óÀÎ Á÷¿øÀÇ employee_id, first_name, salary ÄÃ·³
---Sql¹®Àº ´ë¼Ò¹®ÀÚ¸¦ ±¸º°ÇÏÁö ¾Ê´Â´Ù
-SELECT employee_id, first_name, salary  -- ÄÃ·³
-FROM employees  --Å×ÀÌºí
-WHERE salary >= 12000 --Á¶È¸ Á¶°Ç
-ORDER BY salary desc; --Á¤·Ä(asc(¿À¸§Â÷¼ødefault), desc(³»¸²Â÷¼ø))
+--EMPLOYEESí…Œì´ë¸”ì—ì„œ SALARYê°€ 12000ì´ìƒì¸ ì§ì›ì˜ employee_id, first_name, salary ì»¬ëŸ¼
+--Sqlë¬¸ì€ ëŒ€ì†Œë¬¸ìë¥¼ êµ¬ë³„í•˜ì§€ ì•ŠëŠ”ë‹¤
+SELECT employee_id, first_name, salary  -- ì»¬ëŸ¼
+FROM employees  --í…Œì´ë¸”
+WHERE salary >= 12000 --ì¡°íšŒ ì¡°ê±´
+ORDER BY salary desc; --ì •ë ¬(asc(ì˜¤ë¦„ì°¨ìˆœdefault), desc(ë‚´ë¦¼ì°¨ìˆœ))
 
---employeesÅ×ÀÌºí¿¡¼­ job_id°¡ IT_PROG ÀÎ employee_id, hire_date, job_id
+--employeesí…Œì´ë¸”ì—ì„œ job_idê°€ IT_PROG ì¸ employee_id, hire_date, job_id
 SELECT EMPLOYEE_ID, HIRE_DATE, JOB_ID 
 FROM EMPLOYEES
 WHERE JOB_ID = 'IT_PROG'
 ORDER BY EMPLOYEE_ID;
 
---employeesÅ×ÀÌºí¿¡¼­ employee_id, email, hire_date, salary
---2008³â 1¿ù1ÀÏ ÀÌÈÄ ÀÔ»ç salary°¡ 8000ÀÌÇÏÀÎ »ç¿øÁ¶È¸
---salaryÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä
+--employeesí…Œì´ë¸”ì—ì„œ employee_id, email, hire_date, salary
+--2008ë…„ 1ì›”1ì¼ ì´í›„ ì…ì‚¬ salaryê°€ 8000ì´í•˜ì¸ ì‚¬ì›ì¡°íšŒ
+--salaryì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 SELECT EMPLOYEE_ID, EMAIL, to_char(hire_date, 'YYYY-MM-DD') HIRE_DATE, SALARY
 FROM EMPLOYEES
 WHERE HIRE_DATE >= '08/01/01' AND SALARY <= 8000
 ORDER BY SALARY;
 
---³¯Â¥Æ÷¸ËÇÔ¼ö : ³¯Â¥¸¦ ¿øÇÏ´Â Æ÷¸Ë ¹®ÀÚ¿­·Î º¯°æ
---cdate : ÄÃ·³ÀÇ ÀÌ¸§
+--ë‚ ì§œí¬ë§·í•¨ìˆ˜ : ë‚ ì§œë¥¼ ì›í•˜ëŠ” í¬ë§· ë¬¸ìì—´ë¡œ ë³€ê²½
+--cdate : ì»¬ëŸ¼ì˜ ì´ë¦„
 SELECT to_char(sysdate, 'YYYY-MM-DD') cdate FROM dual;
---dualÀº ÇÑÇà, ÇÑÄÃ·³À» ´ã°í ÀÕ´Â dummy Å×ÀÌºí·Î ÇÔ¼ö ¾²ÀÓ¾Ë°í ½ÍÀ»¶§ Å×ÀÌºí »ı¼º ¾ÈÇÏ°í °ª ¸®ÅÏ ¹ŞÀ» ¼ö ÀÖ´Ù
-
---locationsÅ×ÀÌºí¿¡¼­ city°¡ southlakeÀÎ ¸ğµçÇÊµå
+--dualì€ í•œí–‰, í•œì»¬ëŸ¼ì„ ë‹´ê³  ì‡ëŠ” dummy í…Œì´ë¸”ë¡œ í•¨ìˆ˜ ì“°ì„ì•Œê³  ì‹¶ì„ë•Œ í…Œì´ë¸” ìƒì„± ì•ˆí•˜ê³  ê°’ ë¦¬í„´ ë°›ì„ ìˆ˜ ìˆë‹¤
+ 
+--locationsí…Œì´ë¸”ì—ì„œ cityê°€ southlakeì¸ ëª¨ë“ í•„ë“œ
 select * from LOCATIONS
-where city like '%South%'; --like À¯»çÇÑ°Å »Ì±â -> %µÚ¿¡ºÙÀÌ¸é ½ÃÀÛ ¾çÂÊ¿¡ ºÙÀÌ¸é Æ÷ÇÔ
+where city like '%South%'; --like ìœ ì‚¬í•œê±° ë½‘ê¸° -> %ë’¤ì—ë¶™ì´ë©´ ì‹œì‘ ì–‘ìª½ì— ë¶™ì´ë©´ í¬í•¨
 
---departmentsÅ×ÀÌºí¿¡¼­ department_name¿¡ IT°¡ Æ÷ÇÔµÈ ÇàÀÇ
---department_id, department_name ÇÊµå Á¶È¸
+--departmentsí…Œì´ë¸”ì—ì„œ department_nameì— ITê°€ í¬í•¨ëœ í–‰ì˜
+--department_id, department_name í•„ë“œ ì¡°íšŒ
 select * from departments;
 select department_id, department_name from departments
 where department_name like '%IT%';
 
---Áı°èÇÔ¼ö
---count:µ¥ÀÌÅÍÀÇ °Ç¼ö
+--ì§‘ê³„í•¨ìˆ˜
+--count:ë°ì´í„°ì˜ ê±´ìˆ˜
 select * from departments;
 select COUNT(*) totcnt from DEPARTMENTS;
 
---sum:ÇÕ°è
+--sum:í•©ê³„
 select * from employees;
 select count(*) totCnt, SUM(salary) totsalary, AVG(salary) savg,
         MAX(SALARY) smax, MIN(SALARY) sMIN
 from employees
 where job_id  = 'ST_CLERK';
 
---jobsÅ×ÀÌºí¿¡¼­ min_salary°¡ 9000¹Ì¸¸ÀÎ Á÷¾÷ÀÇ ¼ö
+--jobsí…Œì´ë¸”ì—ì„œ min_salaryê°€ 9000ë¯¸ë§Œì¸ ì§ì—…ì˜ ìˆ˜
 select COUNT(*) tot from jobs
 where MIN_SALARY < 9000;
 
---employeesÅ×ÀÌºí¿¡¼­ department_id°¡ 60¹Ì¸¸ÀÎ »ç¿øÀÇ °¡Àå Å« ¿ù±Ş°ú °¡ÀåÀÛÀº ¿ù±ŞÀ» Á¶È¸
+--employeesí…Œì´ë¸”ì—ì„œ department_idê°€ 60ë¯¸ë§Œì¸ ì‚¬ì›ì˜ ê°€ì¥ í° ì›”ê¸‰ê³¼ ê°€ì¥ì‘ì€ ì›”ê¸‰ì„ ì¡°íšŒ
 select * from employees;
 select MIN(SALARY), max(salary) from employees
 where department_id < 60;
 
---employeesÅ×ÀÌºí¿¡¼­ job_id°¡ IT°¡ Æ÷ÇÔµÈ »ç¿øÁß °¡Àå¸ÕÀú ÀÔ»çÇÑ ÀÏÀÚ
+--employeesí…Œì´ë¸”ì—ì„œ job_idê°€ ITê°€ í¬í•¨ëœ ì‚¬ì›ì¤‘ ê°€ì¥ë¨¼ì € ì…ì‚¬í•œ ì¼ì
 SELECT * FROM employees;
 SELECT MIN(hire_date) FROM employees
 WHERE job_id LIKE '%IT%';
@@ -85,46 +85,46 @@ WHERE job_id LIKE '%IT%';
 --group by, having
 SELECT job_id,SUM(salary) "Total" FROM employees
 GROUP BY job_id
-HAVING SUM(salary) > 20000; --±×·ì°á°ú¿¡ ´ëÇÑ Á¶È¸Á¶°Ç(¾Ë¸®¾Æ½º¸í »ç¿ëºÒ°¡)
+HAVING SUM(salary) > 20000; --ê·¸ë£¹ê²°ê³¼ì— ëŒ€í•œ ì¡°íšŒì¡°ê±´(ì•Œë¦¬ì•„ìŠ¤ëª… ì‚¬ìš©ë¶ˆê°€)
 
 --from -> where -> select -> having -> group by -> order by
 
---½Ç½À1)
---EMPLOYEESÅ×ÀÌºíÀÇ EMPLOYEE_IDÀÇ 200 ÀÌ»óÀÎ »ç¿øÀÇ ¸ğµç ÇÊµå
---EMPLOYEE_ID ÀÇ ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä
+--ì‹¤ìŠµ1)
+--EMPLOYEESí…Œì´ë¸”ì˜ EMPLOYEE_IDì˜ 200 ì´ìƒì¸ ì‚¬ì›ì˜ ëª¨ë“  í•„ë“œ
+--EMPLOYEE_ID ì˜ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
 
 select * from employees
 where EMPLOYEE_ID >= 200
 order by EMPLOYEE_ID;
 
---½Ç½À2)
---EMPLOYEESÅ×ÀÌºíÀÇ EMPLOYEE_ID, MANAGER_ID Á¶È¸
---MANAGER_ID°¡ 147 ¹Ì¸¸ÀÎ »ç¿ø
+--ì‹¤ìŠµ2)
+--EMPLOYEESí…Œì´ë¸”ì˜ EMPLOYEE_ID, MANAGER_ID ì¡°íšŒ
+--MANAGER_IDê°€ 147 ë¯¸ë§Œì¸ ì‚¬ì›
 
 select employee_id, manager_id from EMPLOYEES
 where MANAGER_ID < 147;
 
---½Ç½À3)
---EMPLOYEESÅ×ÀÌºíÀÇ MANAGER_ID°¡ 147¹ø ÀÎ »ç¿øÀÇ ¼ö
+--ì‹¤ìŠµ3)
+--EMPLOYEESí…Œì´ë¸”ì˜ MANAGER_IDê°€ 147ë²ˆ ì¸ ì‚¬ì›ì˜ ìˆ˜
 
 select COUNT(*) from employees
 where manager_id = 147;
 
---½Ç½À4)
---EMPLOYEESÅ×ÀÌºíÀÇ SALARY°¡ 10000 ÀÌ»ó ÀÌ°Å³ª 5000ÀÌÇÏÀÎ »ç¿øÀÇ ¼ö
+--ì‹¤ìŠµ4)
+--EMPLOYEESí…Œì´ë¸”ì˜ SALARYê°€ 10000 ì´ìƒ ì´ê±°ë‚˜ 5000ì´í•˜ì¸ ì‚¬ì›ì˜ ìˆ˜
 
 select COUNT(*) from EMPLOYEES
 where salary >= 10000 or salary <= 5000;
 
---½Ç½À5)
---EMPLOYEESÅ×ÀÌºí¿¡¼­  JOB_ID º°·Î »ç¿øÀÇ ¼ö Á¶È¸
---»ç¿øÀÇ ¼öÀÇ ³»¸²Â÷¼øÀ¸·Î Á¤·Â
+--ì‹¤ìŠµ5)
+--EMPLOYEESí…Œì´ë¸”ì—ì„œ  JOB_ID ë³„ë¡œ ì‚¬ì›ì˜ ìˆ˜ ì¡°íšŒ
+--ì‚¬ì›ì˜ ìˆ˜ì˜ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¥
 select * from EMPLOYEES;
 select job_id, COUNT(*) from EMPLOYEES
 group by job_id;
 
---½Ç½À6)
---jobsÅ×ÀÌºí¿¡¼­ ¾ÕµÎ±ÛÀÚÀÇ ±×·ìÀ¸·Î min_salaryÀÇ °¡Àå ÀÛÀº ¿ù±Ş
+--ì‹¤ìŠµ6)
+--jobsí…Œì´ë¸”ì—ì„œ ì•ë‘ê¸€ìì˜ ê·¸ë£¹ìœ¼ë¡œ min_salaryì˜ ê°€ì¥ ì‘ì€ ì›”ê¸‰
 select * from jobs;
 
 select substr(JOB_ID,1,2) , min(min_salary) from jobs
