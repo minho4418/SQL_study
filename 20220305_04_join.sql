@@ -1,5 +1,5 @@
---ÆÇ¸ÅÅ×ÀÌºí(sales)
---ÄÃ·³: seq(¼ø¹ø(pk)), saledate(³¯Â¥), itemcode(»óÇ°ÄÚµå), qty(ÆÇ¸Å¼ö·®), saleprice(ÆÇ¸Å±İ¾×)
+--íŒë§¤í…Œì´ë¸”(sales)
+--ì»¬ëŸ¼: seq(ìˆœë²ˆ(pk)), saledate(ë‚ ì§œ), itemcode(ìƒí’ˆì½”ë“œ), qty(íŒë§¤ìˆ˜ëŸ‰), saleprice(íŒë§¤ê¸ˆì•¡)
 DROP TABLE sales;
 CREATE TABLE sales(
 seq NUMBER(5),
@@ -8,34 +8,34 @@ itemcode CHAR(4) NOT NULL,
 qty NUMBER(3) NOT NULL,
 saleprice NUMBER(10) NOT NULL,
 PRIMARY KEY (seq),
---salesÀÇ itemcodeÄÃ·³Àº itemÅ×ÀÌºíÀÇ itemcode¸¦ ÂüÁ¶
---itemÅ×ÀÌºíÀÇ itemcode´Â ¹İµå½Ã À¯´ÏÅ©ÇØ¾ßÇÑ´Ù
-FOREIGN KEY(itemcode) REFERENCES item(itemcode) --ÂüÁ¶Å° -> ¾ÆÀÌÅÛÅ×ÀÌºíÀÇ itemcodeºÎºĞ¿¡ ÀÖ´Â °ª¸¸ »ç¿ë°¡´É
+--salesì˜ itemcodeì»¬ëŸ¼ì€ itemí…Œì´ë¸”ì˜ itemcodeë¥¼ ì°¸ì¡°
+--itemí…Œì´ë¸”ì˜ itemcodeëŠ” ë°˜ë“œì‹œ ìœ ë‹ˆí¬í•´ì•¼í•œë‹¤
+FOREIGN KEY(itemcode) REFERENCES item(itemcode) --ì°¸ì¡°í‚¤ -> ì•„ì´í…œí…Œì´ë¸”ì˜ itemcodeë¶€ë¶„ì— ìˆëŠ” ê°’ë§Œ ì‚¬ìš©ê°€ëŠ¥
 );
--- ¸¸µé¶§´Â ºÎ¸ğ(item) -> ÀÚ½Ä(sales)
--- Áö¿ï¶§´Â ÀÚ½Ä -> ºÎ¸ğ
--- ºÎ¸ğÅ×ÀÌºí »èÁ¦ ½Ã ÀÚ½ÄÅ×ÀÌºíÀÌ Á¸ÀçÇÏ¸é ¾ÈµÈ´Ù.
---NOT NULL: ÇØ´ç Ä®·³ÀÌ NULL °ªÀÌ µÇ¸é ¾ÈµÈ´Ù.
---DEFAULT "person": ¸í¹éÇÏ°Ô °ªÀÌ ÀÔ·ÂµÇÁö ¾ÊÀ¸¸é "person"À» °ªÀ¸·Î Á¤ÇØÁØ´Ù.
+-- ë§Œë“¤ë•ŒëŠ” ë¶€ëª¨(item) -> ìì‹(sales)
+-- ì§€ìš¸ë•ŒëŠ” ìì‹ -> ë¶€ëª¨
+-- ë¶€ëª¨í…Œì´ë¸” ì‚­ì œ ì‹œ ìì‹í…Œì´ë¸”ì´ ì¡´ì¬í•˜ë©´ ì•ˆëœë‹¤.
+--NOT NULL: í•´ë‹¹ ì¹¼ëŸ¼ì´ NULL ê°’ì´ ë˜ë©´ ì•ˆëœë‹¤.
+--DEFAULT "person": ëª…ë°±í•˜ê²Œ ê°’ì´ ì…ë ¥ë˜ì§€ ì•Šìœ¼ë©´ "person"ì„ ê°’ìœ¼ë¡œ ì •í•´ì¤€ë‹¤.
 
-drop table item cascade constraints; -- Á¦¾àÁ¶°Ç ¹«½ÃÇÏ°í »èÁ¦
+drop table item cascade constraints; -- ì œì•½ì¡°ê±´ ë¬´ì‹œí•˜ê³  ì‚­ì œ
 
 drop sequence s_seq;
-CREATE SEQUENCE s_seq; --°Ô½Ã¹°ÀÇ seq¸¦ °ü¸®ÇÏ±âÀ§ÇØ
-SELECT s_seq.nextval FROM dual; --´ÙÀ½¹øÈ£
-SELECT s_seq.currval FROM dual; --ÇöÀç¹øÈ£
+CREATE SEQUENCE s_seq; --ê²Œì‹œë¬¼ì˜ seqë¥¼ ê´€ë¦¬í•˜ê¸°ìœ„í•´
+SELECT s_seq.nextval FROM dual; --ë‹¤ìŒë²ˆí˜¸
+SELECT s_seq.currval FROM dual; --í˜„ì¬ë²ˆí˜¸
 
 SELECT * FROM sales;
---Ãß°¡
+--ì¶”ê°€
 INSERT INTO sales (seq, saledate, itemcode, qty, saleprice)
 VALUES(s_seq.nextval, '2022-03-04', '8801', 3, 3000 );
 
---Á¶È¸
---INNER JOIN : µ¿µîÁ¶ÀÎ
+--ì¡°íšŒ
+--INNER JOIN : ë™ë“±ì¡°ì¸
 SELECT s.saledate, s.itemcode, i.itemname, i.price, s.qty, s.saleprice
 FROM sales s INNER JOIN item i on (s.itemcode = i.itemcode);
 
---¼öÁ¤
+--ìˆ˜ì •
 update sales
 set itemcode = '8802',
     saledate = '2022-03-05',
@@ -43,21 +43,21 @@ set itemcode = '8802',
     saleprice = 5000
 where seq = 1;
 
---»èÁ¦
+--ì‚­ì œ
 DELETE FROM sales;
 WHERE seq = 1;
 
-rollback; --Ãë¼Ò
-commit; -- È®Á¤
-SAVEPOINT save1; --·Ñ¹éÇÒ Æ÷ÀÎÆ® ÁöÁ¤
+rollback; --ì·¨ì†Œ
+commit; -- í™•ì •
+SAVEPOINT save1; --ë¡¤ë°±í•  í¬ì¸íŠ¸ ì§€ì •
 rollback to savepoint save1;
 
---ÁÖ¸»¿¡ ÇØº¸±â
- --boardÅ×ÀÌºí(ÀÚ½Ä)ÀÇ writer¿Í memberÅ×ÀÌºí(ºÎ¸ğ) userid °ü°è
- --boardÅ×ÀÌºíÀÇ writer¿¡ fk¸¸µé±â
+--ì£¼ë§ì— í•´ë³´ê¸°
+ --boardí…Œì´ë¸”(ìì‹)ì˜ writerì™€ memberí…Œì´ë¸”(ë¶€ëª¨) userid ê´€ê³„
+ --boardí…Œì´ë¸”ì˜ writerì— fkë§Œë“¤ê¸°
 
---Á¶È¸
---userid, email, Á¦¸ñ, ³»¿ë
+--ì¡°íšŒ
+--userid, email, ì œëª©, ë‚´ìš©
 
 select * from board;
 select * from member;
@@ -69,27 +69,27 @@ FROM board b INNER JOIN member m on (b.writer = m.userid)
 where b.writer = 'java';
 
 FROM board b INNER JOIN member m on (b.writer = m.userid)
-where b.subject like '%ÀÎ»ç%'
+where b.subject like '%ì¸ì‚¬%'
 order by b.seq desc;
 
---Á¶ÀÎ ½Ç½À)
+--ì¡°ì¸ ì‹¤ìŠµ)
 --1)COUNTRIES, REGIONS
---³ª¶óÄÚµå, ³ª¶ó¸í, ´ë·úÄÚµå, ´ë·ú¸í
+--ë‚˜ë¼ì½”ë“œ, ë‚˜ë¼ëª…, ëŒ€ë¥™ì½”ë“œ, ëŒ€ë¥™ëª…
 select * from countries;
 select * from regions;
 select c.country_id,c.country_name,c.region_id,r.region_name 
 from countries c join regions r on (c.region_id = r.region_id);
 
 --2)COUNTRIES, LOCATIONS
---³ª¶óÄÚµå, ³ª¶ó¸í, À§Ä¡¾ÆÀÌµğ, µµ½Ã, ÁÖ¼Ò
+--ë‚˜ë¼ì½”ë“œ, ë‚˜ë¼ëª…, ìœ„ì¹˜ì•„ì´ë””, ë„ì‹œ, ì£¼ì†Œ
 select * from countries;
 select * from locations;
 select c.country_id,c.country_name,l.location_id,l.city,l.street_address 
 from countries c join locations l on (c.country_id = l.country_id);
  
---3)¼¼°³ÀÇ Å×ÀÌºí Á¶ÀÎ
+--3)ì„¸ê°œì˜ í…Œì´ë¸” ì¡°ì¸
 --REGIONS, COUNTRIES, LOCATIONS
---´ë·úÄÚµå, ´ë·ú¸í, ³ª¶óÄÚµå, ³ª¶ó¸í, À§Ä¡¾ÆÀÌµğ, µµ½Ã, ÁÖ¼Ò
+--ëŒ€ë¥™ì½”ë“œ, ëŒ€ë¥™ëª…, ë‚˜ë¼ì½”ë“œ, ë‚˜ë¼ëª…, ìœ„ì¹˜ì•„ì´ë””, ë„ì‹œ, ì£¼ì†Œ
 select * from regions;
 select * from countries;
 select * from locations;
@@ -99,32 +99,32 @@ join locations l on (c.country_id = l.country_id)
 where r.region_name = 'Asia';
 
 --4)EMPLOYEES, JOBS
---»ç¿ø¾ÆÀÌµğ, ÀÌ¸ŞÀÏ, Á÷¾÷¾ÆÀÌµğ, Á÷¾÷Å¸ÀÌÆ², ¿¬ºÀ
---Á¶°Ç: ¿¬ºÀÀÌ 15000º¸´Ù Å« »ç¿ø
+--ì‚¬ì›ì•„ì´ë””, ì´ë©”ì¼, ì§ì—…ì•„ì´ë””, ì§ì—…íƒ€ì´í‹€, ì—°ë´‰
+--ì¡°ê±´: ì—°ë´‰ì´ 15000ë³´ë‹¤ í° ì‚¬ì›
 select * from employees;
 select * from jobs;
 SELECT E.EMPLOYEE_ID, E.EMAIL,J.JOB_ID,J.JOB_TITLE,E.SALARY
 FROM EMPLOYEES E JOIN JOBS J ON (E.JOB_ID = J.JOB_ID);
 
 --5)EMPLOYEES
---»ç¿ø¾ÆÀÌµğ, ÀÌ¸§, °ü¸®ÀÚ¾ÆÀÌµğ, °ü¸®ÀÚ¸í
---LEFT JOIN : ¿ŞÂÊÅ×ÀÌºíÀ» ±âÁØÀ¸·Î Á¶È¸\
+--ì‚¬ì›ì•„ì´ë””, ì´ë¦„, ê´€ë¦¬ìì•„ì´ë””, ê´€ë¦¬ìëª…
+--LEFT JOIN : ì™¼ìª½í…Œì´ë¸”ì„ ê¸°ì¤€ìœ¼ë¡œ ì¡°íšŒ\
 select employee_id, first_name, manager_id from employees;
 select e.employee_id, e.first_name, e.manager_id, m.first_name
 from employees e left join employees m on (e.manager_id = m.employee_id)
 order by e.employee_id;
--- nvl(e.manger_id,0) -> nullÀÌ¸é 0À¸·Î Ç¥½ÃÇØ¶ó¶ó´Â ¶æ
+-- nvl(e.manger_id,0) -> nullì´ë©´ 0ìœ¼ë¡œ í‘œì‹œí•´ë¼ë¼ëŠ” ëœ»
 
 
 select * from item;
 select * from sales;
 select * from item i left join sales s on (i.itemcode = s.itemcode);
---»óÇ°º°·Î ÆÇ¸Å¼ö·®, ÆÇ¸ÅÇÕ°è
+--ìƒí’ˆë³„ë¡œ íŒë§¤ìˆ˜ëŸ‰, íŒë§¤í•©ê³„
 select i.itemname,s.qty, s.qty*S.SALEPRICE sum
 from item i left join sales s on (i.itemcode = s.itemcode)
 order by i.itemcode;
---³¯Â¥º°·Î ÆÇ¸Å¼ö·®, ÆÇ¸ÅÇÕ°è
+--ë‚ ì§œë³„ë¡œ íŒë§¤ìˆ˜ëŸ‰, íŒë§¤í•©ê³„
 select i.itemname,s.saledate, nvl(s.qty,0), s.qty*S.SALEPRICE sum
 from item i left join sales s on (i.itemcode = s.itemcode)
 order by s.saledate;
---³¯Â¥º°, »óÇ°º°·Î ÆÇ¸Å¼ö·®, ÆÇ¸ÅÇÕ°è
+--ë‚ ì§œë³„, ìƒí’ˆë³„ë¡œ íŒë§¤ìˆ˜ëŸ‰, íŒë§¤í•©ê³„ 
